@@ -3,5 +3,36 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "az-zoneless": {
+      "projectType": "library",
+      "root": "projects/az-zoneless",
+      "sourceRoot": "projects/az-zoneless/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/az-zoneless/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/az-zoneless/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/az-zoneless/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/az-zoneless/src/test.ts",
+            "tsConfig": "projects/az-zoneless/tsconfig.spec.json",
+            "karmaConfig": "projects/az-zoneless/karma.conf.js"
+          }
+        }
+      }
+    }
   }
 }
