@@ -7,13 +7,13 @@
  * @license: MIT
  */
 
-import { ChangeDetectorRef, Injectable, Injector, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Injectable, Injector } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 import camelCase from 'camelcase';
 
 declare var ng: {
   getInjector(elementOrDir: {} | Element): Injector;
-}
+};
 
 @Injectable()
 export class DetectChangesEventsPlugin {
@@ -45,11 +45,19 @@ export class DetectChangesEventsPlugin {
     const monkeyPatchHandler = (...args: any) => {
       handler.apply(element, args);
       cd.detectChanges();
-    }
+    };
 
-    element.addEventListener(eventRealName, monkeyPatchHandler as EventListener, false);
+    element.addEventListener(
+      eventRealName,
+      monkeyPatchHandler as EventListener,
+      false
+    );
     return () =>
-      this.removeEventListener(element, eventRealName, monkeyPatchHandler as EventListener);
+      this.removeEventListener(
+        element,
+        eventRealName,
+        monkeyPatchHandler as EventListener
+      );
   }
 
   removeEventListener(
