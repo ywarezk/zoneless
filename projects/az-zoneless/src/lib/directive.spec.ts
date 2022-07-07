@@ -37,7 +37,7 @@ class TestComponent {
   }
 }
 
-describe('azZoneLess', () => {
+describe('azZone Directives', () => {
   let fixture: ComponentFixture<TestComponent>;
 
   beforeEach(waitForAsync(() => {
@@ -52,7 +52,7 @@ describe('azZoneLess', () => {
     fixture.detectChanges();
   }));
 
-  fit('zone should not be angular', fakeAsync(() => {
+  it('zone should not be angular', fakeAsync(() => {
     tick()
     fixture.debugElement
       .query(By.css('#detectZone'))
