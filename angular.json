@@ -33,6 +33,102 @@
           }
         }
       }
+    },
+    "material-test": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/material-test",
+      "sourceRoot": "projects/material-test/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/material-test",
+            "index": "projects/material-test/src/index.html",
+            "main": "projects/material-test/src/main.ts",
+            "polyfills": "projects/material-test/src/polyfills.ts",
+            "tsConfig": "projects/material-test/tsconfig.app.json",
+            "assets": [
+              "projects/material-test/src/favicon.ico",
+              "projects/material-test/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/material-test/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/material-test/src/environments/environment.ts",
+                  "with": "projects/material-test/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "material-test:build:production"
+            },
+            "development": {
+              "browserTarget": "material-test:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "material-test:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/material-test/src/test.ts",
+            "polyfills": "projects/material-test/src/polyfills.ts",
+            "tsConfig": "projects/material-test/tsconfig.spec.json",
+            "karmaConfig": "projects/material-test/karma.conf.js",
+            "assets": [
+              "projects/material-test/src/favicon.ico",
+              "projects/material-test/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/material-test/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   }
 }
