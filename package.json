@@ -38,7 +38,6 @@
     "karma-jasmine": "~5.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "ng-packagr": "^14.0.0",
-    "nz-test": "^4.3.0",
     "typescript": "~4.7.2"
   }
 }
