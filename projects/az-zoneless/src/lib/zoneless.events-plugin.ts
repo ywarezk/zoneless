@@ -7,7 +7,7 @@
  * @license: MIT
  */
 
-import {ApplicationRef, Injectable, NgZone } from '@angular/core';
+import { ApplicationRef, Injectable, NgZone } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 
 @Injectable()
@@ -16,24 +16,33 @@ export class ZonelessEventsPlugin {
 
   constructor(private _application: ApplicationRef) {}
 
-  supports(eventName: string): boolean {
+  supports(): boolean {
     if (this.manager.getZone() instanceof NgZone) {
       return false;
     }
     return true;
   }
 
-  addEventListener(element: HTMLElement, eventName: string, handler: Function): Function {
+  addEventListener(
+    element: HTMLElement,
+    eventName: string,
+    handler: Function
+  ): Function {
     const monkeyPatchHandler = (...args: any) => {
       handler.apply(element, args);
-      this._application.tick()
-    }
+      this._application.tick();
+    };
 
     element.addEventListener(eventName, monkeyPatchHandler, false);
-    return () => this.removeEventListener(element, eventName, monkeyPatchHandler);
+    return () =>
+      this.removeEventListener(element, eventName, monkeyPatchHandler);
   }
 
-  removeEventListener(target: any, eventName: string, callback: Function): void {
+  removeEventListener(
+    target: any,
+    eventName: string,
+    callback: Function
+  ): void {
     return target.removeEventListener(eventName, callback as EventListener);
   }
 }

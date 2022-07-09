@@ -7,36 +7,150 @@
  * @license: MIT
  */
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatCheckboxHarness } from '@angular/material/checkbox/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  ComponentFixtureNoNgZone,
+  TestBed,
+} from '@angular/core/testing';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { HarnessLoader } from '@angular/cdk/testing';
-import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { NgZone, ɵNoopNgZone } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { ZonelessModule } from 'az-zoneless';
+import { ApplicationRef, NgZone, ɵNoopNgZone } from '@angular/core';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
-  let loader: HarnessLoader;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, MatCheckboxModule],
-      declarations: [AppComponent],
-      providers: [{ provide: NgZone, useClass: ɵNoopNgZone }],
-    }).compileComponents();
+  describe('with zone', () => {
+    beforeEach(() => {
+      return TestBed.configureTestingModule({
+        imports: [NoopAnimationsModule, MatCheckboxModule, ReactiveFormsModule],
+        declarations: [AppComponent],
+        providers: [
+          {
+            provide: ComponentFixtureAutoDetect,
+            useValue: true,
+          },
+        ],
+      }).compileComponents();
+    });
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      fixture.detectChanges();
+    });
+
+    it('with ngzone the checkbox should work', () => {
+      const checkboxInput = fixture.debugElement.query(
+        By.css('#checkbox input[type="checkbox"]')
+      );
+      const checkbox = fixture.debugElement.query(By.css('#checkbox'));
+      checkboxInput.nativeElement.dispatchEvent(new Event('click'));
+      expect(
+        checkbox.nativeElement.classList.contains('mat-checkbox-checked')
+      ).toBe(false);
+      checkboxInput.nativeElement.dispatchEvent(new Event('click'));
+      expect(
+        checkbox.nativeElement.classList.contains('mat-checkbox-checked')
+      ).toBe(true);
+    });
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AppComponent);
+  describe('without zone', () => {
+    beforeEach(() => {
+      return TestBed.configureTestingModule({
+        imports: [NoopAnimationsModule, MatCheckboxModule, ReactiveFormsModule],
+        declarations: [AppComponent],
+        providers: [
+          {
+            provide: NgZone,
+            useClass: ɵNoopNgZone,
+          },
+          {
+            provide: ComponentFixtureAutoDetect,
+            useValue: true,
+          },
+          {
+            provide: ComponentFixtureNoNgZone,
+            useValue: true,
+          },
+        ],
+      }).compileComponents();
+    });
 
-    fixture.detectChanges;
-    loader = TestbedHarnessEnvironment.loader(fixture);
+    beforeEach(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      fixture.detectChanges();
+    });
+
+    it('without ngzone the checkbox should not work', () => {
+      const checkboxInput = fixture.debugElement.query(
+        By.css('#checkbox input[type="checkbox"]')
+      );
+      const checkbox = fixture.debugElement.query(By.css('#checkbox'));
+      checkboxInput.nativeElement.dispatchEvent(new Event('click'));
+      expect(
+        checkbox.nativeElement.classList.contains('mat-checkbox-checked')
+      ).toBe(true);
+      checkboxInput.nativeElement.dispatchEvent(new Event('click'));
+      expect(
+        checkbox.nativeElement.classList.contains('mat-checkbox-checked')
+      ).toBe(true);
+    });
   });
 
-  fit('sanity', async (done) => {
-    const checkboxHarness = await loader.getHarness(MatCheckboxHarness);
-    checkboxHarness.check();
+  describe('without zone and with azZoneless', () => {
+    beforeEach(() => {
+      return TestBed.configureTestingModule({
+        imports: [
+          NoopAnimationsModule,
+          MatCheckboxModule,
+          ReactiveFormsModule,
+          ZonelessModule,
+        ],
+        declarations: [AppComponent],
+        providers: [
+          {
+            provide: ComponentFixtureAutoDetect,
+            useValue: true,
+          },
+          {
+            provide: NgZone,
+            useClass: ɵNoopNgZone,
+          },
+        ],
+      }).compileComponents();
+    });
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      fixture.detectChanges();
+    });
+
+    // set the application ref
+    beforeEach(() => {
+      const appRef = TestBed.inject<ApplicationRef>(ApplicationRef);
+      fixture.componentRef.changeDetectorRef;
+      const view = fixture.componentRef.hostView;
+      (appRef as any)._views.push(view);
+    });
+
+    it('without ngzone and with ZonelessModule the checkbox should work', () => {
+      const checkboxInput = fixture.debugElement.query(
+        By.css('#checkbox input[type="checkbox"]')
+      );
+      const checkbox = fixture.debugElement.query(By.css('#checkbox'));
+      checkboxInput.nativeElement.dispatchEvent(new Event('click'));
+      expect(
+        checkbox.nativeElement.classList.contains('mat-checkbox-checked')
+      ).toBe(false);
+      checkboxInput.nativeElement.dispatchEvent(new Event('click'));
+      expect(
+        checkbox.nativeElement.classList.contains('mat-checkbox-checked')
+      ).toBe(true);
+    });
   });
 });

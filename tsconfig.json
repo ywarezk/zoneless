@@ -4,7 +4,10 @@
   "compilerOptions": {
     "paths": {
       "az-zoneless": [
-        "dist/az-zoneless"
+        "projects/az-zoneless/src/public-api.ts"
+      ],
+      "az-zoneless/*": [
+        "projects/az-zoneless/src/*"
       ]
     },
     "baseUrl": "./",

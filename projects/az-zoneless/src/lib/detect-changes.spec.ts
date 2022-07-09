@@ -7,8 +7,12 @@
  * @license: MIT
  */
 
-import { Component, NgZone, OnInit, ɵNoopNgZone } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
+import {
+  ComponentFixture,
+  ComponentFixtureNoNgZone,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ZonelessModule } from './zone-less.module';
 
@@ -34,7 +38,12 @@ describe('detect-changes events', () => {
     TestBed.configureTestingModule({
       declarations: [DetectChanges],
       imports: [ZonelessModule],
-      providers: [{ provide: NgZone, useClass: ɵNoopNgZone }],
+      providers: [
+        {
+          provide: ComponentFixtureNoNgZone,
+          useValue: true,
+        },
+      ],
     }).compileComponents();
   });
 
