@@ -1,5 +1,9 @@
 # az-zoneless
 
+[![Known Vulnerabilities](https://snyk.io/test/github/ywarezk/zoneless/badge.svg)]
+
+(https://snyk.io/test/github/ywarezk/zoneless)
+
 A set of directive and utilities to manage an angular zoneless app.  
 Using this library you can go completly zoneless and still support 3rd party libraries like `@angular/material`.
 
