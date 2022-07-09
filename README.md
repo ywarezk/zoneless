@@ -3,6 +3,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/ywarezk/zoneless/badge.svg)](https://snyk.io/test/github/ywarezk/zoneless)
 ![build](https://github.com/ywarezk/zoneless/actions/workflows/ci.yaml/badge.svg)
 [![codecov](https://codecov.io/gh/ywarezk/zoneless/branch/main/graph/badge.svg?token=NGE5CODVZD)](https://codecov.io/gh/ywarezk/zoneless)
+[![npm version](https://badge.fury.io/js/az-zoneless.svg)](https://www.npmjs.com/az-zoneless)
 
 A set of directive and utilities to manage an angular zoneless app.  
 Using this library you can go completly zoneless and still support 3rd party libraries like `@angular/material`.
