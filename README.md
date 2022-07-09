@@ -1,7 +1,6 @@
 # az-zoneless
 
 [![Known Vulnerabilities](https://snyk.io/test/github/ywarezk/zoneless/badge.svg)](https://snyk.io/test/github/ywarezk/zoneless)
-
 ![build](https://github.com/ywarezk/zoneless/actions/workflows/ci.yaml/badge.svg)
 
 A set of directive and utilities to manage an angular zoneless app.  

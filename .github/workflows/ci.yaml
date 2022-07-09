@@ -23,6 +23,16 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm test
+
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          files: ./coverage/az-zoneless/cobertura-coverage.xml,./coverage/material-test/cobertura-coverage.xml # optional
+          flags: unittests # optional
+          name: az-zoneless # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
+
       - run: npm run build
       - run: cd dist/az-zoneless && npm publish
         env:
