@@ -7,7 +7,7 @@
 # @license: MIT
 #
 
-name: Publish Package to npmjs
+name: Build
 on:
   release:
     types: [created]
