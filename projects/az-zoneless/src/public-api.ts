@@ -8,3 +8,5 @@
  */
 
 export * from './lib/zone-less.module';
+export * from './lib/zone-full.directive';
+export * from './lib/zone-less.directive';

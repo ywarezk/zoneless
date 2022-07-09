@@ -1,7 +1,7 @@
 # az-zoneless
 
 A set of directive and utilities to manage an angular zoneless app.  
-Using this library you can go completly zoneless and still support 3rd party libraries like `@angular/material`.  
+Using this library you can go completly zoneless and still support 3rd party libraries like `@angular/material`.
 
 This library will solve the following:
 
@@ -14,7 +14,7 @@ _**Warning:** This package is experimental_
 ## Installation
 
 ```bash
-npm i az-zoneless
+npm i az-zoneless camelcase
 ```
 
 In your `AppModule` add the `ZonelessModule` to the `imports` array.
@@ -50,10 +50,11 @@ To make angular work without `Zone.js` please do the following:
 2. in the `main.ts` you need to tell angular to not work with `Zone.js`
 
 ```typescript
-platformBrowserDynamic().bootstrapModule(AppModule, {
-  ngZone: 'noop'
-})
-  .catch(err => console.error(err));
+platformBrowserDynamic()
+  .bootstrapModule(AppModule, {
+    ngZone: "noop",
+  })
+  .catch((err) => console.error(err));
 ```
 
 ## Lecture about using angular in zoneless
@@ -69,7 +70,7 @@ Here is a lecture where I explain about angular in zoneless mode
 <button (click)="doSomething()"></button>
 ```
 
-These events will still work but they are less performent.  
+These events will still work but they are less performent.
 
 2. To improve performance and really take advantage of the fact that you are zoneless, please use the events like this:
 
@@ -96,14 +97,17 @@ This will work only if you did not remove `Zone.js`
 
 ```html
 <div>
-  <h1>
-    This part is inside zonejs
-  </h1>
-  <button (click)="doSomething()">clicking this will run change detection</button>
-  
+  <h1>This part is inside zonejs</h1>
+  <button (click)="doSomething()">
+    clicking this will run change detection
+  </button>
+
   <div *azZoneLess>
     <h1>This part is outside zonejs</h1>
-    <button (click)="doSomething()">clicking this will run outside the zone and will only update is you call ChangeDetectorRef.detectChanges()</button>
+    <button (click)="doSomething()">
+      clicking this will run outside the zone and will only update is you call
+      ChangeDetectorRef.detectChanges()
+    </button>
   </div>
 </div>
 ```
@@ -111,24 +115,26 @@ This will work only if you did not remove `Zone.js`
 ### azZoneFull
 
 If you used the `azZoneLess` you can go back to running in angular zone using the `azZoneFull` directive.
-This directive will only work if you did not remove `Zone.js`.  
+This directive will only work if you did not remove `Zone.js`.
 
 ```html
 <div>
-  <h1>
-    This part is inside zonejs
-  </h1>
-  <button (click)="doSomething()">clicking this will run change detection</button>
-  
+  <h1>This part is inside zonejs</h1>
+  <button (click)="doSomething()">
+    clicking this will run change detection
+  </button>
+
   <div *azZoneLess>
     <h1>This part is outside zonejs</h1>
-    <button (click)="doSomething()">clicking this will run outside the zone and will only update is you call ChangeDetectorRef.detectChanges()</button>
-    
+    <button (click)="doSomething()">
+      clicking this will run outside the zone and will only update is you call
+      ChangeDetectorRef.detectChanges()
+    </button>
+
     <div *azZoneFull>
       <!-- This will return us back to the zone.js -->
       <button (click)="doSomething()">This runs in the zone.js</button>
     </div>
-    
   </div>
 </div>
 ```
