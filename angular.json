@@ -29,7 +29,8 @@
           "options": {
             "main": "projects/az-zoneless/src/test.ts",
             "tsConfig": "projects/az-zoneless/tsconfig.spec.json",
-            "karmaConfig": "projects/az-zoneless/karma.conf.js"
+            "karmaConfig": "projects/az-zoneless/karma.conf.js",
+            "codeCoverage": true
           }
         }
       }
@@ -117,6 +118,7 @@
             "polyfills": "projects/material-test/src/polyfills.ts",
             "tsConfig": "projects/material-test/tsconfig.spec.json",
             "karmaConfig": "projects/material-test/karma.conf.js",
+            "codeCoverage": true,
             "assets": [
               "projects/material-test/src/favicon.ico",
               "projects/material-test/src/assets"
