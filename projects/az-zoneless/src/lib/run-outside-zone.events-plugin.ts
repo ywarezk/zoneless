@@ -9,7 +9,7 @@
 
 import { Injectable, NgZone } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
-import camelCase from 'camelcase';
+import { camelCase } from './camelcase';
 
 @Injectable()
 export class RunOutsideZoneEventsPlugin {
@@ -20,8 +20,7 @@ export class RunOutsideZoneEventsPlugin {
   }
 
   supports(eventName: string): boolean {
-
-    return /^az.*\.zoneless$/.test(eventName)
+    return /^az.*\.zoneless$/.test(eventName);
   }
 
   addEventListener(
@@ -30,17 +29,18 @@ export class RunOutsideZoneEventsPlugin {
     handler: Function
   ): Function {
     const eventRealName = this._calcEvent(eventName);
-    const ngZone = this.manager.getZone()
+    const ngZone = this.manager.getZone();
     if (!(ngZone instanceof NgZone)) {
-      throw new Error('zoneless events requires you to run angular with Zonejs')
+      throw new Error(
+        'zoneless events requires you to run angular with Zonejs'
+      );
     }
 
     ngZone.runOutsideAngular(() => {
       element.addEventListener(eventRealName, handler as EventListener, false);
-    })
+    });
 
-    return () =>
-      this.removeEventListener(element, eventRealName, handler);
+    return () => this.removeEventListener(element, eventRealName, handler);
   }
 
   removeEventListener(

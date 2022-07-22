@@ -19,7 +19,7 @@ _**Warning:** This package is experimental_
 ## Installation
 
 ```bash
-npm i az-zoneless camelcase
+npm i az-zoneless
 ```
 
 In your `AppModule` add the `ZonelessModule` to the `imports` array.

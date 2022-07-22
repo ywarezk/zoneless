@@ -9,7 +9,7 @@
 
 import { ChangeDetectorRef, Injectable, Injector } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
-import camelCase from 'camelcase';
+import { camelCase } from './camelcase';
 
 declare var ng: {
   getInjector(elementOrDir: {} | Element): Injector;
