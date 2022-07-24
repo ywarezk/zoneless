@@ -7,7 +7,7 @@
  * @license: MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { ApplicationRef, Component, OnInit } from '@angular/core';
 import {
   ComponentFixture,
   ComponentFixtureNoNgZone,
@@ -50,6 +50,14 @@ describe('detect-changes events', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DetectChanges);
     fixture.detectChanges();
+  });
+
+  // set the application ref
+  beforeEach(() => {
+    const appRef = TestBed.inject<ApplicationRef>(ApplicationRef);
+    fixture.componentRef.changeDetectorRef;
+    const view = fixture.componentRef.hostView;
+    (appRef as any)._views.push(view);
   });
 
   it('click should work even outside the angular zone', () => {

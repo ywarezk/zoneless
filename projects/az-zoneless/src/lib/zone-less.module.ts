@@ -14,19 +14,10 @@ import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 import { ZonelessEventsPlugin } from './zoneless.events-plugin';
 import { DetectChangesEventsPlugin } from './detect-changes.events-plugin';
 import { RunOutsideZoneEventsPlugin } from './run-outside-zone.events-plugin';
-// import { DetectChangesEventDirective } from './detect-changes-event.directive';
 
 @NgModule({
-  declarations: [
-    ZoneLessDirective,
-    ZoneFullDirective,
-    // DetectChangesEventDirective,
-  ],
-  exports: [
-    ZoneLessDirective,
-    ZoneFullDirective,
-    // DetectChangesEventDirective
-  ],
+  declarations: [ZoneLessDirective, ZoneFullDirective],
+  exports: [ZoneLessDirective, ZoneFullDirective],
   providers: [
     {
       provide: EVENT_MANAGER_PLUGINS,

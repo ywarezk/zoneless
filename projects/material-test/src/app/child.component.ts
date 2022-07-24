@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 @Component({
   selector: 'app-child',
   template: `
-    <button (azClick)="doSomething()">click me</button>
+    <button id="button-counter2" (azClick)="doSomething()">click me</button>
     <p id="counter2">{{ counter() }}</p>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

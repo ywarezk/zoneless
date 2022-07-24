@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ZonelessModule } from 'az-zoneless';
 import { ApplicationRef, NgZone, ɵNoopNgZone } from '@angular/core';
+import { ChildComponent } from './child.component';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -28,7 +29,7 @@ describe('AppComponent', () => {
     beforeEach(() => {
       return TestBed.configureTestingModule({
         imports: [NoopAnimationsModule, MatCheckboxModule, ReactiveFormsModule],
-        declarations: [AppComponent],
+        declarations: [AppComponent, ChildComponent],
         providers: [
           {
             provide: ComponentFixtureAutoDetect,
@@ -63,7 +64,7 @@ describe('AppComponent', () => {
     beforeEach(() => {
       return TestBed.configureTestingModule({
         imports: [NoopAnimationsModule, MatCheckboxModule, ReactiveFormsModule],
-        declarations: [AppComponent],
+        declarations: [AppComponent, ChildComponent],
         providers: [
           {
             provide: NgZone,
@@ -111,7 +112,7 @@ describe('AppComponent', () => {
           ReactiveFormsModule,
           ZonelessModule,
         ],
-        declarations: [AppComponent],
+        declarations: [AppComponent, ChildComponent],
         providers: [
           {
             provide: ComponentFixtureAutoDetect,
@@ -151,6 +152,17 @@ describe('AppComponent', () => {
       expect(
         checkbox.nativeElement.classList.contains('mat-checkbox-checked')
       ).toBe(true);
+    });
+
+    it('azClick calls detect changes only on the child', () => {
+      const counter = fixture.debugElement.query(By.css('#counter'));
+      const counter2 = fixture.debugElement.query(By.css('#counter2'));
+      expect(counter.nativeElement.innerText.trim()).toBe('1');
+      expect(counter2.nativeElement.innerText.trim()).toBe('1');
+      const button = fixture.debugElement.query(By.css('#button-counter2'));
+      button.nativeElement.dispatchEvent(new Event('click'));
+      expect(counter.nativeElement.innerText.trim()).toBe('1');
+      expect(counter2.nativeElement.innerText.trim()).toBe('2');
     });
   });
 });
