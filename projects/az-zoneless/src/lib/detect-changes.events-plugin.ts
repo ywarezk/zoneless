@@ -7,13 +7,10 @@
  * @license: MIT
  */
 
-import { ChangeDetectorRef, Injectable, Injector } from '@angular/core';
+import { ApplicationRef, Injectable } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 import { camelCase } from './camelcase';
-
-declare var ng: {
-  getInjector(elementOrDir: {} | Element): Injector;
-};
+import { getInjector } from './discovery-utils';
 
 @Injectable()
 export class DetectChangesEventsPlugin {
@@ -24,6 +21,8 @@ export class DetectChangesEventsPlugin {
     const event = eventName.substring(2);
     return [prefix, camelCase(event)];
   }
+
+  constructor(private _application: ApplicationRef) {}
 
   supports(eventName: string): boolean {
     const [prefix] = this._splitEvent(eventName);
@@ -39,12 +38,18 @@ export class DetectChangesEventsPlugin {
     handler: Function
   ): Function {
     const [_, eventRealName] = this._splitEvent(eventName);
-    const injector = ng.getInjector(element);
-    const cd = injector.get(ChangeDetectorRef);
 
+    let cd: any = undefined;
     const monkeyPatchHandler = (...args: any) => {
       handler.apply(element, args);
-      cd.detectChanges();
+      if (cd === undefined) {
+        cd = getInjector(element, (this._application as any)._views);
+      }
+      if (cd) {
+        cd();
+      } else {
+        this._application.tick();
+      }
     };
 
     element.addEventListener(

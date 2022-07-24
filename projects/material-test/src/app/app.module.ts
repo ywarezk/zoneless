@@ -6,9 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ZonelessModule } from 'az-zoneless';
+import { ChildComponent } from './child.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ChildComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
