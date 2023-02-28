@@ -16,6 +16,12 @@ This library will solve the following:
 
 _**Warning:** This package is experimental_
 
+## How to work on zoneless mode
+
+Watch this video I made to fully understand the best way to utilize zoneless in your angular app.
+
+[![Angular going zoneless](https://github.com/ywarezk/academeez/raw/main/libs/lessons/courses/angular/change-detection/zonejs-opt-out/thumbnail.png)](https://youtu.be/R2wjayCaw30 "Angular going zoneless")
+
 ## Installation
 
 ```bash
