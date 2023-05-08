@@ -72,6 +72,8 @@ platformBrowserDynamic()
 
 Here is a lecture where I explain about angular in zoneless mode
 
+[![alt](https://raw.githubusercontent.com/ywarezk/academeez/main/lessons/courses/angular/change-detection/zonejs-opt-out/thumbnail-video.png)](https://www.youtube.com/watch?v=R2wjayCaw30)
+
 ## Events
 
 1. After using the library, make sure to not use the regular events:
@@ -109,16 +111,11 @@ This will work only if you did not remove `Zone.js`
 ```html
 <div>
   <h1>This part is inside zonejs</h1>
-  <button (click)="doSomething()">
-    clicking this will run change detection
-  </button>
+  <button (click)="doSomething()">clicking this will run change detection</button>
 
   <div *azZoneLess>
     <h1>This part is outside zonejs</h1>
-    <button (click)="doSomething()">
-      clicking this will run outside the zone and will only update is you call
-      ChangeDetectorRef.detectChanges()
-    </button>
+    <button (click)="doSomething()">clicking this will run outside the zone and will only update is you call ChangeDetectorRef.detectChanges()</button>
   </div>
 </div>
 ```
@@ -131,16 +128,11 @@ This directive will only work if you did not remove `Zone.js`.
 ```html
 <div>
   <h1>This part is inside zonejs</h1>
-  <button (click)="doSomething()">
-    clicking this will run change detection
-  </button>
+  <button (click)="doSomething()">clicking this will run change detection</button>
 
   <div *azZoneLess>
     <h1>This part is outside zonejs</h1>
-    <button (click)="doSomething()">
-      clicking this will run outside the zone and will only update is you call
-      ChangeDetectorRef.detectChanges()
-    </button>
+    <button (click)="doSomething()">clicking this will run outside the zone and will only update is you call ChangeDetectorRef.detectChanges()</button>
 
     <div *azZoneFull>
       <!-- This will return us back to the zone.js -->
